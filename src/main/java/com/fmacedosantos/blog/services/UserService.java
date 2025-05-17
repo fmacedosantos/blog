@@ -1,0 +1,19 @@
+package com.fmacedosantos.blog.services;
+
+import com.fmacedosantos.blog.domain.User;
+import com.fmacedosantos.blog.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class UserService {
+
+    @Autowired
+    private UserRepository repo;
+
+    public List<User> findAll() {
+        return repo.findAll();
+    }
+}
