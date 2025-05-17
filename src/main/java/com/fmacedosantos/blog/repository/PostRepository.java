@@ -2,6 +2,7 @@ package com.fmacedosantos.blog.repository;
 
 import com.fmacedosantos.blog.domain.Post;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -22,4 +23,16 @@ public interface PostRepository extends MongoRepository<Post, String> {
     disponibiliza a partir de palavras-chave, sem precisar de implementação
      */
     List<Post> findByTitleContainingIgnoreCase(String text);
+
+    /*
+    O mongoDB também permite que criemos nossas próprias queries, com base
+    em sua própria sintaxe, disponibilizada em:
+    https://www.mongodb.com/pt-br/docs/manual/reference/operator/query/regex/
+
+    ?0 define o primeiro parâmetro do método como valor para $regex
+    i ignora maiúsculas e minúsculas
+     */
+
+    @Query("{ 'title': { $regex: ?0, $options: 'i' } }")
+    List<Post> searchTitle(String text);
 }
